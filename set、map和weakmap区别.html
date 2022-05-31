@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+  let arr = new Set()
+  arr.add({name:'212',age:20}).add({}).add({})
+  console.log(arr)
+  console.log(arr.size)
+  const set = new Set([
+    ['name','jack'],
+    ['age',9999],
+    ['height','180cm']
+  ])
+  let student = {name:'jack',age:12}
+  let arr2 = [[1,2],[3,4]]
+  const weakset = new  WeakSet(arr2)
+  // weakmap.add(student)
+  console.log(weakset)
+
+  const map = new Map([
+    ['name','jack'],
+    ['age','32']
+  ])
+  const mp2 = new Map(set)
+  map.set('height',167)
+  console.log(map.get('height'),map.size)
+  console.log(mp2.has('height'))
+
+  const testMap = new Map()
+
+  testMap.set(['a'],555)
+  console.log(testMap.get(['a']))
+  console.log(testMap)
+
+  const k1 = ['a']
+  const k2 = ['a']
+  testMap.set(k1,111).set(k2,222)
+  console.log(testMap.get(k1))
+  console.log(testMap.get(k2))
+  let mapKey = [...testMap.keys()]
+  console.log(mapKey)
+</script>
+</html>

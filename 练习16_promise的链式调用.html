@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+  <script>
+    new Promise((resolve,reject)=>{
+      setTimeout(()=>{
+        resolve('Hello world')
+      })
+    }).then(res=>{
+      console.log(res)
+      console.log(res)
+      console.log(res)
+      console.log(res)
+      console.log(res)
+      return new Promise((resolve,reject)=>{
+        setTimeout(()=>{
+          resolve('Hello vue')
+        })
+      })
+    }).then(res=>{
+      console.log(res)
+      console.log(res)
+      console.log(res)
+      console.log(res)
+      console.log(res)
+      return new Promise((resolve,reject)=>{
+        setTimeout(()=>{
+          resolve('hello fuck')
+        })
+      })
+    }).then(res=>{
+      console.log(res)
+      console.log(res)
+      console.log(res)
+      console.log(res)
+      console.log(res)
+    })
+  </script>
+</body>
+</html>

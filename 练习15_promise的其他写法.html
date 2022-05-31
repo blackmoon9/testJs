@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+  <script>
+    new Promise((resolve, reject) => {
+      setTimeout(()=>{
+        // resolve('我是帅哥')
+        reject('我是哈啤')
+      })
+    }).then(res=>{
+      console.log(res)
+    },err=>{
+      console.log(err)
+    })
+  </script>
+</body>
+</html>

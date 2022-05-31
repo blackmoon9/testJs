@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+  <script>
+    class Person {
+      constructor(name) {
+        this.name = name
+      }
+      drink(){
+        console.log('drink water')
+      }
+    }
+    class Student extends  Person{
+      constructor(name,height,score) {
+        super(name)
+        this.height = height
+        this.score = score
+      }
+      introduce(){
+        console.log(`我是${this.name},我身高${this.height},考了${this.score}分`)
+      }
+    }
+
+    const student = new Student('老故事','1.5cm',60)
+    student.introduce()
+    student.drink()
+    console.log(student)
+
+    class Teacher extends Person{
+      constructor(name,subject) {
+        super(name)
+        this.subject = subject
+      }
+
+      description(){
+        console.log(`我是${this.name},主要教${this.subject}课程`)
+      }
+    }
+    const teacher = new Teacher('王子','语文')
+    teacher.description()
+    teacher.drink()
+    console.log(teacher)
+
+  </script>
+</body>
+</html>

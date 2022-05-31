@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+  <script>
+    class MyPromise{
+      static PENDING = '待定';static FULFILLED = '成功' ; static REJECTED = '拒绝'
+      constructor(func) {
+        this.status = MyPromise.PENDING
+        this.result = null
+        this.reason = null
+        this.resolveCallbacks = []
+        this.rejectCallbacks = []
+        try {
+          func(this.resolve.bind(this),this.reject.bind(this))
+        }catch (error){
+          this.reject(error)
+        }
+      }
+      resolve(result){
+        if (this.status === MyPromise.PENDING){
+          this.status = MyPromise.FULFILLED
+          this.result = result
+
+          this.resolveCallbacks.forEach(callback=>{
+            callback(result)
+          })
+        }
+
+      }
+      reject(reason){
+        setTimeout(()=>{
+          if (this.status === MyPromise.PENDING){
+            this.status = MyPromise.REJECTED
+            this.reason = reason
+            this.rejectCallbacks.forEach(callback=>{
+              callback(reason)
+            })
+          }
+        })
+      }
+      then(onFULFILLED,onREJECTED){
+        onFULFILLED = typeof onFULFILLED === 'function' ? onFULFILLED : val=>val
+        onREJECTED = typeof onREJECTED === 'function' ? onREJECTED : err =>{throw err}
+        let promise2 =  new MyPromise((resolve,reject)=>{
+
+          if (this.status === MyPromise.FULFILLED){
+            setTimeout(()=>{
+              try {
+                const x = onFULFILLED(this.result)
+                resolvePromise(promise2,x,resolve,reject)
+              }catch (e){
+                reject(e)
+              }
+            })
+          }
+          if (this.status === MyPromise.REJECTED){
+            setTimeout(()=>{
+              try {
+                const x = onREJECTED(this.reason)
+                resolvePromise(promise2,x,resolve,reject)
+              }catch (e){
+                reject(e)
+              }
+
+            })
+          }
+
+          if (this.status === MyPromise.PENDING){
+            this.resolveCallbacks.push(()=>{
+              setTimeout(()=>{
+                try {
+                  let x = onFULFILLED(this.result)
+                  resolvePromise(promise2,x,resolve,reject)
+                }catch (e) {
+                  reject(e)
+                }
+              })
+            })
+            this.rejectCallbacks.push(()=>{
+              setTimeout(()=>{
+                try {
+                  let x = onREJECTED(this.reason)
+                  resolvePromise(promise2,x,resolve,reject)
+                }catch (e) {
+                  reject(e)
+                }
+              })
+            })
+          }
+        })
+        return promise2
+      }
+      catch(fn){
+        return this.then(null,fn)
+      }
+    }
+    function resolvePromise(promise2,x,resolve,reject){
+      if (promise2 === x){
+        return reject(new TypeError('Chaining cycle detected for promise #<Promise>'))
+      }
+      if (x instanceof  MyPromise){
+        x.then(resolve,reject)
+      }else {
+        resolve(x)
+      }
+      // if (x === promise2){
+      //   return reject(new TypeError('Chaining cycle detected for promise #<Promise>'))
+      // }
+      // let called;
+      // if (x != null &&(typeof x === 'object' || typeof x=== 'function')){
+      //   try {
+      //     let then = x.then;
+      //     if (typeof then === "function"){
+      //       then.call(x,y =>{
+      //         if (called) return
+      //         called = true
+      //         resolvePromise(promise2,y,resolve,reject)
+      //       },error =>{
+      //         if (called) return
+      //         called = true
+      //         reject(error)
+      //       })
+      //     }
+      //   }catch (e){
+      //     if(called) return
+      //     reject(e)
+      //   }
+      // }else {
+      //   resolve(x)
+      // }
+    }
+    console.log('1')
+
+    let myPromise = new MyPromise((resolve,reject)=>{
+      console.log(2)
+      setTimeout(()=>{
+        resolve('myPromise')
+        console.log('hhh')
+      })
+    })
+    function other(){
+      return new MyPromise((resolve,reject)=>{
+        resolve('other')
+      })
+    }
+    myPromise.then(value=>{
+      console.log('resolve1')
+      console.log('resolve1',value)
+      return other()
+    }).then(value=>{
+      console.log('resolve2')
+      console.log('resolve2',value)
+      return new MyPromise((resolve,reject)=>{
+        reject('错误叻啊 啊')
+      })
+    }).catch(err=>{
+      console.log(err)
+    })
+    console.log(3)
+
+  </script>
+</body>
+</html>

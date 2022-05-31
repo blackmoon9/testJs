@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+  <script>
+    function deepClone(val,map = new WeakMap){
+      if (val === null) return val
+      if (val instanceof Date) return  new Date(val)
+      if (val instanceof RegExp) return new RegExp(val)
+      if (typeof val !== 'object') return val
+      if (map.get(val)) return map.get(val)
+      let cloneVal = new val.constructor()
+      map.set(val,cloneVal)
+      for (const key in val){
+        if (val.hasOwnProperty(key)){
+          cloneVal[key] = deepClone(val[key],map)
+        }
+      }
+      return cloneVal
+     }
+    let obj = { name: 1, address: { x: 100 },array:['29','22','34'] };
+    obj.o = obj; // 对象存在循环引用的情况
+    let d = deepClone(obj);
+    obj.address.x = 200;
+    obj.array[0] = 'sdjffj'
+
+
+  </script>
+</body>
+</html>

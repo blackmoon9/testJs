@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+  <script>
+    // hasOwnProperty 用来判断某个对象是否含有指定的属性
+    let object = { }
+    object.name = '阿哈哈哈哈'
+    object.jack = '我哦哦'
+    console.log(object.hasOwnProperty('name'))
+    console.log(object.hasOwnProperty('jet'))
+    console.log(object.hasOwnProperty('jack'))
+
+    // instance of 检测对象不是某个构造函数的实例
+    const data = new Date()
+    const rex = new RegExp('222')
+    console.log(data instanceof Date)
+    console.log(data instanceof rex)
+  </script>
+</body>
+</html>

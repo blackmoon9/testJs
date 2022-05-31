@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+  <script>
+    let newObj = {}
+    let maxKey
+    let maxNumber = 1
+    let arr = ['赵', '钱', '孙', '孙', '李', '周', '李', '周', '周', '李'];
+    arr.forEach(key =>{
+      newObj[key] ? newObj[key]++ : newObj[key] = 1
+      if (newObj[key] > maxNumber){
+        maxKey = key
+        maxNumber = newObj[key]
+      }
+    })
+    console.log(maxKey)
+    // const result = Object.keys(newObj).sort((a,b)=>newObj[b] - newObj[a]).filter((key,l,i)=>newObj[key] === newObj[l[0]])
+    // console.log(result)
+  </script>
+</body>
+</html>

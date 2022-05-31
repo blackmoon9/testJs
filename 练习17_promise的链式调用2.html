@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+  <script>
+    //写法1
+    new Promise((resolve,reject)=>{
+      setTimeout(()=>{
+        resolve('result')
+      })
+    }).then(res=>{
+      console.log('第一层',res)
+      return  new Promise(resolve => {
+        resolve(res+'111')
+      })
+    }).then(res=>{
+      console.log('第二层',res)
+      return new Promise(resolve => {
+        resolve(res+'2222')
+      })
+    }).then(res=>{
+      console.log('第三层',res)
+    })
+
+    //写法2
+    new Promise((resolve, reject) =>{
+      setTimeout(()=>{
+        resolve('2result')
+      })
+    }).then(res=>{
+      console.log('第一层：',res)
+      return Promise.resolve(res+'111')
+    }).then(res=>{
+      console.log('第二层：',res)
+      return Promise.resolve(res+'222')
+    }).then(res=>{
+      console.log('第三层：',res)
+    })
+  </script>
+</body>
+</html>

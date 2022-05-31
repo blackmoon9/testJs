@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        let peopleA = {name:'bobo',age:25,friend:{name:'local',age:22}}
+        let peopleB = {...peopleA}
+        let peopleC = JSON.parse(JSON.stringify(peopleA))
+        let peopleD = Object.assign({},peopleA)
+        let peopleE = peopleA
+        peopleA.friend.name = 'superman'
+        peopleA.name = 'spider'
+        console.log('peopleB:浅',peopleB)
+        console.log('peopleC:深',peopleC)
+        console.log('peopleD:浅',peopleD)
+        console.log('peopleE:赋',peopleE)
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+  <script>
+    function person(){
+      console.log(this)
+    }
+    let val = {name:'ssds',age:19}
+    person.call(val)
+  </script>
+</body>
+</html>
